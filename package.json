@@ -1,0 +1,19 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "Builidng Applications with React and Flux",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^15.0.0",
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.2.0",
+    "gulp-open": "^2.1.0",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
