@@ -4,9 +4,10 @@ var gulp = require('gulp');
 var connect = require('gulp-connect'); // Runs local dev server
 var open = require('gulp-open');  // Open URL in a web browser
 var browserify = require('browserify'); // Bundles Js
-var reactify = require('reactify'); // Transforms Rerac JSX to JS
+var reactify = require('reactify'); // Transforms React JSX to JS
 var source = require('vinyl-source-stream'); // Use conventional text streams with Gulp
 var concat = require('gulp-concat'); // Concatinate files
+var lint = require('gulp-eslint'); // Lint JS file, including JSX
 
 
 var config = {
@@ -61,9 +62,34 @@ gulp.task('css', function () {
             .pipe(gulp.dest(config.paths.dist + '/css'));
 });
 
-gulp.task('watch', function () {
-    gulp.watch(config.paths.html, ['html']);
-    gulp.watch(config.paths.js, ['js']);
+gulp.task('lint', function () {
+   return gulp.src(config.paths.js)
+       .pipe(lint({configFile: 'eslint.config.json'}))
+       .pipe(lint.format());
 });
 
-gulp.task('default', ['html', 'css', 'js', 'open', 'watch']);
+/*
+gulp.task('lint', function () {
+    // ESLint ignores files with "node_modules" paths.
+    // So, it's best to have gulp ignore the directory as well.
+    // Also, Be sure to return the stream from the task;
+    // Otherwise, the task may end before the stream has finished.
+    return gulp.src([config.paths.js,'!node_modules/!**'])
+    // eslint() attaches the lint output to the "eslint" property
+    // of the file object so it can be used by other modules.
+        .pipe(lint({config: 'eslint.config.json'}))
+        // eslint.format() outputs the lint results to the console.
+        // Alternatively use eslint.formatEach() (see Docs).
+        .pipe(lint.format())
+        // To have the process exit with an error code (1) on
+        // lint error, return the stream and pipe to failAfterError last.
+        .pipe(lint.failAfterError());
+});
+*/
+
+gulp.task('watch', function () {
+    gulp.watch(config.paths.html, ['html']);
+    gulp.watch(config.paths.js, ['js', 'lint']);
+});
+
+gulp.task('default', ['html', 'lint', 'css', 'js', 'open', 'watch']);
