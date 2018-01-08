@@ -5,10 +5,11 @@ var createReactClass = require('create-react-class');
 
 var Home = createReactClass({
    render: function () {
-       return  (<div className="jumbtron">
+       return  (
+           <div className="jumbotron">
                <h1>React Admin</h1>
                <p>React, React Router, and Flux for ultra-responsive web app.</p>
-                </div>
+           </div>
        );
    }
 });

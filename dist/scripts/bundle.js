@@ -28184,10 +28184,11 @@ var createReactClass = require('create-react-class');
 
 var Home = createReactClass({
    render: function () {
-       return  (React.createElement("div", {className: "jumbtron"}, 
+       return  (
+           React.createElement("div", {className: "jumbotron"}, 
                React.createElement("h1", null, "React Admin"), 
                React.createElement("p", null, "React, React Router, and Flux for ultra-responsive web app.")
-                )
+           )
        );
    }
 });
