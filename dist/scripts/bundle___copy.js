@@ -12052,10 +12052,11 @@ var createReactClass = require('create-react-class');
 
 var Home = createReactClass({
    render: function () {
-       return  (React.createElement("div", {className: "jumbtron"}, 
+       return (
+           React.createElement("div", {className: "jumbtron"}, 
                React.createElement("h1", null, "React Admin"), 
                React.createElement("p", null, "React, React Router, and Flux for ultra-responsive web app.")
-                )
+           )
        );
    }
 });
@@ -12067,6 +12068,6 @@ $ = jQuery = require('jquery');
 var React = require('react');
 var Home = require('./components/homePage');
 
-React.render(React.createElement(Home, null)  , document.getElementById('app'));
+React.render(Home , document.getElementById('app'));
 
 },{"./components/homePage":16,"jquery":8,"react":14}]},{},[17]);
