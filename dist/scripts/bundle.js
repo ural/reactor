@@ -28182,6 +28182,36 @@ arguments[4][3][0].apply(exports,arguments)
 var React = require('react');
 var createReactClass = require('create-react-class');
 
+var About = createReactClass({
+    render: function () {
+        return (
+            React.createElement("div", null, 
+                React.createElement("h1", null, "About"), 
+                React.createElement("p", null, 
+                    "This application uses following technologies:", 
+                    React.createElement("ul", null, 
+                        React.createElement("li", null, "React"), 
+                        React.createElement("li", null, "React Router"), 
+                        React.createElement("li", null, "Flux"), 
+                        React.createElement("li", null, "Node"), 
+                        React.createElement("li", null, "Gulp"), 
+                        React.createElement("li", null, "Browserify"), 
+                        React.createElement("li", null, "Bootstrap")
+                    )
+                )
+            )
+        );
+    }
+});
+
+module.exports = About;
+
+},{"create-react-class":2,"react":30}],33:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var createReactClass = require('create-react-class');
+
 var Home = createReactClass({
    render: function () {
        return  (
@@ -28193,23 +28223,43 @@ var Home = createReactClass({
    }
 });
 
+
 module.exports = Home;
 
-},{"create-react-class":2,"react":30}],33:[function(require,module,exports){
+},{"create-react-class":2,"react":30}],34:[function(require,module,exports){
 $ = jQuery = require('jquery');
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 var Home = require('./components/homePage');
-
-/*
-$ = jQuery = require('jquery');
-import React from 'react';
-import ReactDOM from 'react-dom';
-*/
+var About = require('./components/about/aboutPage');
 
 
+var App = createReactClass({
+   render: function () {
 
+       var Child;
 
-ReactDOM.render(React.createElement(Home, null)  , document.getElementById('app'));
+       switch (this.props.route) {
+           case 'about': Child = About;
+           break;
+           default: Child = Home;
+       }
 
-},{"./components/homePage":32,"jquery":20,"react":30,"react-dom":26}]},{},[33]);
+       return (
+           React.createElement("div", null, 
+               React.createElement(Child, null)
+           )
+       );
+   }
+});
+
+function render() {
+    var route = window.location.hash.substr(1);
+    ReactDOM.render(React.createElement(App, {route: route}), document.getElementById('app'));
+}
+
+window.addEventListener('hashchange', render);
+render();
+
+},{"./components/about/aboutPage":32,"./components/homePage":33,"create-react-class":2,"jquery":20,"react":30,"react-dom":26}]},{},[34]);

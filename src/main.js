@@ -1,15 +1,34 @@
 $ = jQuery = require('jquery');
 var React = require('react');
+var createReactClass = require('create-react-class');
 var ReactDOM = require('react-dom');
 var Home = require('./components/homePage');
-
-/*
-$ = jQuery = require('jquery');
-import React from 'react';
-import ReactDOM from 'react-dom';
-*/
+var About = require('./components/about/aboutPage');
 
 
+var App = createReactClass({
+   render: function () {
 
+       var Child;
 
-ReactDOM.render(<Home />  , document.getElementById('app'));
+       switch (this.props.route) {
+           case 'about': Child = About;
+           break;
+           default: Child = Home;
+       }
+
+       return (
+           <div>
+               <Child/>
+           </div>
+       );
+   }
+});
+
+function render() {
+    var route = window.location.hash.substr(1);
+    ReactDOM.render(<App route={route} />, document.getElementById('app'));
+}
+
+window.addEventListener('hashchange', render);
+render();
