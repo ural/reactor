@@ -8,8 +8,8 @@ var About = createReactClass({
         return (
             <div>
                 <h1>About</h1>
-                <p>
-                    This application uses following technologies:
+                <div>
+                    <h4>This application uses following technologies:</h4>
                     <ul>
                         <li>React</li>
                         <li>React Router</li>
@@ -19,7 +19,7 @@ var About = createReactClass({
                         <li>Browserify</li>
                         <li>Bootstrap</li>
                     </ul>
-                </p>
+                </div>
             </div>
         );
     }

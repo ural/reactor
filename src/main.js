@@ -24,7 +24,9 @@ var App = createReactClass({
        return (
            <div>
                <Header />
-               <Child />
+               <div className="main">
+                   <Child />
+               </div>
            </div>
        );
    }

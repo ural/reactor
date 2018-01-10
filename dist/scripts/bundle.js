@@ -45349,8 +45349,8 @@ var About = createReactClass({
         return (
             React.createElement("div", null, 
                 React.createElement("h1", null, "About"), 
-                React.createElement("p", null, 
-                    "This application uses following technologies:", 
+                React.createElement("div", null, 
+                    React.createElement("h4", null, "This application uses following technologies:"), 
                     React.createElement("ul", null, 
                         React.createElement("li", null, "React"), 
                         React.createElement("li", null, "React Router"), 
@@ -45373,7 +45373,47 @@ module.exports = About;
 
 var React = require('react');
 var createReactClass = require('create-react-class');
+
+var AuthorList = createReactClass({
+
+    render: function () {
+
+        var createAuthorRow = function (author) {
+            return (
+                React.createElement("tr", {key: author.id}, 
+                    React.createElement("td", null, React.createElement("a", {href: "/#authors/"+author.id}, author.id)), 
+                    React.createElement("td", null, author.firstName, " ", author.lastName)
+                )
+            );
+        };
+
+        return (
+            React.createElement("div", null, 
+                React.createElement("h2", null, "Authors"), 
+
+                React.createElement("table", {className: "table table-hover"}, 
+                    React.createElement("thead", null, 
+                    React.createElement("td", null, "ID"), 
+                    React.createElement("td", null, "Name")
+                    ), 
+                    React.createElement("tbody", null, 
+                    this.props.authors.map(createAuthorRow, this)
+                    )
+                )
+            )
+        );
+    }
+});
+
+module.exports = AuthorList;
+
+},{"create-react-class":2,"react":31}],37:[function(require,module,exports){
+"use strict";
+
+var React = require('react');
+var createReactClass = require('create-react-class');
 var AuthorApi = require('../../api/authorApi');
+var AuthorList =require('./authorList');
 
 var Authors = createReactClass({
 
@@ -45382,38 +45422,18 @@ var Authors = createReactClass({
             authors: []
         }
     },
-    componentWillMount: function () {
-        this.setState({authors: AuthorApi.getAllAuthors()});
+    componentDidMount: function () {
+
+        //if (this.isMounted()) {
+            this.setState({authors: AuthorApi.getAllAuthors()});
+        //}
     },
 
    render: function () {
 
-       var createAuthorRow = function (author) {
-            return (
-                React.createElement("tr", {key: author.id}, 
-                    React.createElement("td", null, React.createElement("a", {href: "/#authors/" + author.id}, author.id)), 
-                    React.createElement("td", null, author.firstName, " ", author.lastName)
-                )
-            );
-       };
-
        return (
            React.createElement("div", null, 
-               React.createElement("h2", null, "Authors"), 
-
-               React.createElement("table", {className: "table"}, 
-                   React.createElement("thead", null, 
-                       React.createElement("th", null, "ID"), 
-                       React.createElement("th", null, "Name")
-                   ), 
-                   React.createElement("tbody", null, 
-                        this.state.authors.map(createAuthorRow, this)
-                   )
-               )
-
-
-
-
+               React.createElement(AuthorList, {authors: this.state.authors})
            )
        );
    }
@@ -45421,7 +45441,7 @@ var Authors = createReactClass({
 
 module.exports = Authors;
 
-},{"../../api/authorApi":33,"create-react-class":2,"react":31}],37:[function(require,module,exports){
+},{"../../api/authorApi":33,"./authorList":36,"create-react-class":2,"react":31}],38:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45431,7 +45451,7 @@ var createReactClass = require('create-react-class');
 var Header = createReactClass({
    render: function () {
        return (
-           React.createElement("nav", {className: "navbar navbar-default"}, 
+           React.createElement("nav", {className: "navbar navbar-inverse navbar-fixed-top"}, 
                React.createElement("a", {href: "/"}, 
                    React.createElement("img", {src: "images/react.png", alt: ""})
                ), 
@@ -45448,7 +45468,7 @@ var Header = createReactClass({
 });
 module.exports = Header;
 
-},{"create-react-class":2,"react":31}],38:[function(require,module,exports){
+},{"create-react-class":2,"react":31}],39:[function(require,module,exports){
 "use strict";
 
 var React = require('react');
@@ -45468,7 +45488,7 @@ var Home = createReactClass({
 
 module.exports = Home;
 
-},{"create-react-class":2,"react":31}],39:[function(require,module,exports){
+},{"create-react-class":2,"react":31}],40:[function(require,module,exports){
 $ = jQuery = require('jquery');
 var React = require('react');
 var createReactClass = require('create-react-class');
@@ -45495,7 +45515,9 @@ var App = createReactClass({
        return (
            React.createElement("div", null, 
                React.createElement(Header, null), 
-               React.createElement(Child, null)
+               React.createElement("div", {className: "main"}, 
+                   React.createElement(Child, null)
+               )
            )
        );
    }
@@ -45509,4 +45531,4 @@ function render() {
 window.addEventListener('hashchange', render);
 render();
 
-},{"./components/about/aboutPage":35,"./components/authors/authorPage":36,"./components/common/header":37,"./components/homePage":38,"create-react-class":2,"jquery":20,"react":31,"react-dom":27}]},{},[39]);
+},{"./components/about/aboutPage":35,"./components/authors/authorPage":37,"./components/common/header":38,"./components/homePage":39,"create-react-class":2,"jquery":20,"react":31,"react-dom":27}]},{},[40]);

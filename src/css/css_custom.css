@@ -1,7 +1,11 @@
-.navbar.navbar-default {
+.navbar.navbar-inverse {
     display: flex;
 }
 
-.navbar.navbar-default img {
+.navbar.navbar-inverse img {
     width: 40px;
+}
+
+.main   {
+    margin: 50px 0 0;
 }
